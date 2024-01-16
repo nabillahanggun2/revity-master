@@ -11,8 +11,14 @@ jobs:
       - name: Install npm dependencies
         run: yarn
 
-      - name: Build Android Release
-        run: cd android && ./gradlew assembleRelease
+      - name: Build APK
+        run: eas build --profile preview --platform android --non-interactive --clear-cache
+
+      - name: GET APK URL from EXPO
+        run: eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl
+
+      - name: Store apk download URL in env variable
+        run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
