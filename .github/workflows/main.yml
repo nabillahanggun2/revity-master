@@ -26,7 +26,7 @@ jobs:
     - name: Build and Test
       run: |
         expo build:android -t apk
-        # Add any additional testing commands here
+        cd android && ./gradlew assembleRelease
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v2
@@ -46,7 +46,3 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: app-artifact
-
-    - name: Deploy to Firebase/App Center/Other
-      run: |
-        # Add deployment steps here, such as deploying to Firebase, App Center, etc.
