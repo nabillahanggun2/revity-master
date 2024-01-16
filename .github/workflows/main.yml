@@ -25,7 +25,7 @@ jobs:
 
     - name: Build and Test
       run: |
-        expo build:android -t apk
+        expo build:android --non-interactive
         cd android && ./gradlew assembleRelease
 
     - name: Archive artifacts
